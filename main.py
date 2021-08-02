@@ -1,23 +1,21 @@
 # to calculate barcode's 13th digit error.
 import random
-
 # make random 12 digits
-def bar_check():
-  bar = []
-  for _ in range(12):
-    bar.append(random.randint(0,9))
-  print(bar) 
-  line1tot = 0 
-  line2tot = 0
-  for ele in range(0,12,2):
-    line1tot += bar[ele]
-    line2tot += bar[ele+1]
-  line1 = line1tot % 10
-  line2 = line2tot % 10
-  check = 10 - (((3 * line2) % 10 + line1) % 10)
-  print (check) 
+bar = [9,3,1,1,5,9,9,4,1,6,4,6] # headgear check 4
+# make random 13 digits
+bar2 = []
+for _ in range(12):
+   bar2.append(random.randint(0,9))
+print(bar, bar2)
+def bar_check(bar):
+    line1 = sum(bar[::2])
+    line2 = sum(bar[1::2])
+    check_digit = 10 - (((3 * line2) + line1) % 10)
+    return check_digit
+  
+def bar_valid(bar_code):
+  check = bar_check(bar_code)
+  return check == bar_code[-1]
 
-
-def barvalid():
-
-bar_check()
+print (bar_check(bar)) 
+print (bar_valid(bar2))
